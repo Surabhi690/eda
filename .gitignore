@@ -1,0 +1,128 @@
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+# Define the scope and credentials
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+credentials = ServiceAccountCredentials.from_json_keyfile_name(
+    "my-credentials.json", scope
+)
+
+# Authenticate with Google Sheets
+gc = gspread.authorize(credentials)
+
+# Open the Google Sheet by its title
+spreadsheet = gc.open("student_ml_dataset.csv")
+
+# Select the specific worksheet within the Google Sheet
+worksheet = spreadsheet.get_worksheet(0)  # Change the index as needed
+
+# Load the data into a Pandas DataFrame
+df = pd.DataFrame(worksheet.get_all_records())
+
+import pandas as pd
+
+# Load the dataset into a Pandas DataFrame
+df = pd.read_csv("student_ml_dataset.csv")
+
+# Check the first few rows of the dataset
+print(df.head())
+
+# Use the info() and describe() methods
+print(df.info())
+print(df.describe())
+
+
+
+# Univariate analysis for numerical columns
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Age
+plt.figure(figsize=(8, 6))
+sns.histplot(data=df, x='age', kde=True)
+plt.title("Distribution of Age")
+plt.show()
+
+# Hours of Study
+plt.figure(figsize=(8, 6))
+sns.histplot(data=df, x='hours_study', kde=True)
+plt.title("Distribution of Hours of Study")
+plt.show()
+
+# Physics Marks
+# Chemistry Marks
+# You can create histograms for these columns in a similar way.
+
+# Univariate analysis for categorical columns
+# Gender
+plt.figure(figsize=(6, 4))
+sns.countplot(data=df, x='gender')
+plt.title("Distribution of Gender")
+plt.show()
+
+# Has Part-Time Job
+plt.figure(figsize=(6, 4))
+sns.countplot(data=df, x='has_part_time_job')
+plt.title("Distribution of Having a Part-Time Job")
+plt.show()
+
+
+Step 4: Bivariate Analysis
+Explore relationships between columns using scatter plots for numerical variables and bar plots for categorical variables.
+
+Step 5: Multivariate Analysis
+Use techniques like heatmaps, pair plots, and factor plots to explore relationships between multiple variables.
+
+Step 6: Data Preprocessing
+
+Handle missing values, if any.
+Encode categorical variables (e.g., one-hot encoding for "gender" and "has_part_time_job").
+Step 7: Final Inferences and Insights
+Summarize your findings and provide explanations based on your EDA. For example, you can analyze how gender relates to study hours and academic performance.
+
+Step 8: Recommendations and Next Steps
+Suggest potential actions or further analyses based on your findings, such as identifying factors that impact student performance.
+
+Remember to replace "your-data-file.csv" with the actual path to your dataset, and adapt the code as needed to match your specific dataset and research questions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
